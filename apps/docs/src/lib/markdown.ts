@@ -7,10 +7,26 @@ import rehypeStringify from "rehype-stringify";
 import rehypeHighlight from "rehype-highlight";
 import "highlight.js/styles/github.css";
 
-const contentDir = path.join(process.cwd(), "content");
+// 경로를 상위의 상위 디렉토리의 content로 수정
+const contentDir = path.join(process.cwd(), "../../content");
+
+// content 디렉토리가 없으면 생성
+if (!fs.existsSync(contentDir)) {
+    fs.mkdirSync(contentDir, { recursive: true });
+}
 
 export async function getDocBySlug(slug: string) {
-    const fullPath = path.join(contentDir, `${slug}.md`);
+    // URL 인코딩된 슬러그를 디코딩하여 처리
+    const decodedSlug = decodeURIComponent(slug);
+    const fullPath = path.join(contentDir, `${decodedSlug}.md`);
+    // 파일이 존재하는지 확인
+    if (!fs.existsSync(fullPath)) {
+        return {
+            meta: {},
+            content: "",
+        };
+    }
+    
     const fileContents = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(fileContents);
 
@@ -33,6 +49,11 @@ export function getAllDocs(): { slug: string; title: string }[] {
         dir: string,
         prefix = ""
     ): { slug: string; title: string }[] => {
+        // 디렉토리가 존재하는지 확인
+        if (!fs.existsSync(dir)) {
+            return [];
+        }
+        
         const entries = fs.readdirSync(dir, { withFileTypes: true });
 
         return entries.flatMap((entry) => {
@@ -43,9 +64,14 @@ export function getAllDocs(): { slug: string; title: string }[] {
                 return walk(entryPath, `${slug}/`);
             }
 
+            // .md 파일만 처리
+            if (!entry.name.endsWith('.md')) {
+                return [];
+            }
+
             const fileContents = fs.readFileSync(entryPath, "utf8");
             const { data } = matter(fileContents);
-            return [{ slug, title: data.title }];
+            return [{ slug, title: data.title || slug }];
         });
     };
 
@@ -59,6 +85,11 @@ export function getAllDocsDetailed(): {
     content: string;
 }[] {
     const walk = (dir: string, prefix = ""): any[] => {
+        // 디렉토리가 존재하는지 확인
+        if (!fs.existsSync(dir)) {
+            return [];
+        }
+        
         const entries = fs.readdirSync(dir, { withFileTypes: true });
 
         return entries.flatMap((entry) => {
@@ -67,6 +98,11 @@ export function getAllDocsDetailed(): {
 
             if (entry.isDirectory()) {
                 return walk(entryPath, `${slug}/`);
+            }
+
+            // .md 파일만 처리
+            if (!entry.name.endsWith('.md')) {
+                return [];
             }
 
             const fileContents = fs.readFileSync(entryPath, "utf8");

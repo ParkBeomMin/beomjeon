@@ -52,7 +52,7 @@ export default function ClientHome({ initialDocs }: { initialDocs: any[] }) {
                 {docs.map((doc) => (
                     <li key={doc.slug}>
                         <Link
-                            href={`/${doc.slug}`}
+                            href={`/${encodeURIComponent(doc.slug)}`}
                             className="text-blue-600 hover:underline"
                         >
                             {doc.title}

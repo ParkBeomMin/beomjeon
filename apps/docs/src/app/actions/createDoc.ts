@@ -4,7 +4,7 @@ import fs from "fs/promises";
 import path from "path";
 export async function createDoc(inputPath: string, bodyContent: string = "") {
     try {
-        const contentDir = path.join(process.cwd(), "content");
+        const contentDir = path.join(process.cwd(), "../../content");
         const fullPath = path.join(contentDir, `${inputPath}.md`);
 
         const segments = inputPath.split("/");
@@ -22,8 +22,8 @@ export async function createDoc(inputPath: string, bodyContent: string = "") {
         await fs.writeFile(fullPath, template, "utf-8");
 
         return { success: true };
-    } catch (e) {
+    } catch (e: unknown) {
         console.error("문서 생성 실패:", e);
-        return { success: false, error: e.message };
+        return { success: false, error: e instanceof Error ? e.message : String(e) };
     }
 }
