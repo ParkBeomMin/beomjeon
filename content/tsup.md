@@ -1,6 +1,7 @@
 ---
 title: tsup
-tags: []
+tags: [typescript, bundler]
+lastUpdated: 2025-04-11
 ---
 
 TypeScript 프로젝트를 빠르게 빌드해주는 도구

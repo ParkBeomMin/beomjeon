@@ -5,6 +5,7 @@ import { remark } from "remark";
 import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import rehypeHighlight from "rehype-highlight";
+import remarkGfm from "remark-gfm";
 import "highlight.js/styles/github.css";
 
 // 경로를 상위의 상위 디렉토리의 content로 수정
@@ -31,6 +32,7 @@ export async function getDocBySlug(slug: string) {
     const { data, content } = matter(fileContents);
 
     const processedContent = await remark()
+        .use(remarkGfm)
         .use(remarkRehype)
         .use(rehypeHighlight)
         .use(rehypeStringify)
