@@ -2,11 +2,15 @@ import { getDocBySlug } from "@/lib/markdown";
 import { notFound } from "next/navigation";
 import CopyableCode from "@@/components/CopyableCode";
 
-type Params = {
-    slug: string[];
-};
+// Next.js의 PageProps 타입과 호환되도록 타입 정의 수정
+interface PageProps {
+    params: {
+        slug: string[];
+    };
+    searchParams: Record<string, string | string[] | undefined>;
+}
 
-export default async function DocPage({ params }: { params: Params }) {
+export default async function DocPage({ params }: PageProps) {
     const slugPath = params.slug.join("/");
     try {
         const doc = await getDocBySlug(slugPath);
