@@ -23,7 +23,7 @@ export default function CopyableCode() {
                     await navigator.clipboard.writeText(code.innerText);
                     button.innerText = "✅ 복사됨!";
                     setTimeout(() => (button.innerText = "📋 복사"), 1500);
-                } catch (_) {
+                } catch {
                     button.innerText = "❌ 실패";
                 }
             };
