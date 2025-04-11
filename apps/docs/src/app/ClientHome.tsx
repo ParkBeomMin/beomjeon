@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import CreateDocModal from "./components/CreateDocModal";
 
@@ -16,6 +16,17 @@ export default function ClientHome({ initialDocs }: { initialDocs: DocType[] }) 
     const [docs, setDocs] = useState(initialDocs);
     const [open, setOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
+    const [isLocalEnv, setIsLocalEnv] = useState(false);
+    
+    // 로컬 환경인지 확인
+    useEffect(() => {
+        const hostname = window.location.hostname;
+        setIsLocalEnv(
+            hostname === 'localhost' || 
+            hostname === '127.0.0.1' || 
+            hostname.includes('.local')
+        );
+    }, []);
     
     const filteredDocs = searchQuery 
         ? docs.filter(doc => 
@@ -123,14 +134,16 @@ export default function ClientHome({ initialDocs }: { initialDocs: DocType[] }) 
                 )}
             </ul>
             
-            {/* 플로팅 새 문서 만들기 버튼 */}
-            <button
-                onClick={() => setOpen(true)}
-                className="fixed bottom-6 right-6 bg-blue-600 text-white w-14 h-14 rounded-full shadow-lg hover:bg-blue-700 flex items-center justify-center text-2xl transition-all hover:scale-110"
-                aria-label="새 문서 만들기"
-            >
-                ➕
-            </button>
+            {/* 플로팅 새 문서 만들기 버튼 - 로컬 환경에서만 표시 */}
+            {isLocalEnv && (
+                <button
+                    onClick={() => setOpen(true)}
+                    className="fixed bottom-6 right-6 bg-blue-600 text-white w-14 h-14 rounded-full shadow-lg hover:bg-blue-700 flex items-center justify-center text-2xl transition-all hover:scale-110"
+                    aria-label="새 문서 만들기"
+                >
+                    ➕
+                </button>
+            )}
         </main>
     );
 }
