@@ -1,5 +1,16 @@
 import Link from "next/link";
 import { getDocsByTag } from "@/lib/markdown";
+import type { Metadata } from "next";
+
+// 동적 메타데이터 생성
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+    const tag = params.tag;
+    return {
+        title: `#${tag} | 범전 문서`,
+        description: `${tag} 태그가 포함된 문서 목록입니다.`,
+        keywords: [tag],
+    };
+}
 
 // Next.js App Router의 페이지 컴포넌트
 export default function TagPage({ params }: any) {

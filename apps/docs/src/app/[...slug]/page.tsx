@@ -2,6 +2,26 @@ import { getDocBySlug, getAllDocs } from "@/lib/markdown";
 import { notFound } from "next/navigation";
 import CopyableCode from "@@/components/CopyableCode";
 import Link from "next/link";
+import type { Metadata } from "next";
+
+// 동적 메타데이터 생성
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+    const slugPath = params.slug.join("/");
+    
+    try {
+        const doc = await getDocBySlug(slugPath);
+        return {
+            title: `${doc.meta.title || slugPath} | 범전 문서`,
+            description: doc.meta.description || `${doc.meta.title || slugPath}에 대한 기술 문서`,
+            keywords: doc.meta.tags || [],
+        };
+    } catch {
+        return {
+            title: "문서를 찾을 수 없음 | 범전 문서",
+            description: "요청하신 문서를 찾을 수 없습니다.",
+        };
+    }
+}
 
 // Next.js App Router의 페이지 컴포넌트
 export default async function DocPage({ params }: any) {
