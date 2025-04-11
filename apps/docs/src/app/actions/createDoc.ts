@@ -9,10 +9,14 @@ export async function createDoc(inputPath: string, bodyContent: string = "") {
 
         const segments = inputPath.split("/");
         const title = segments[segments.length - 1];
+        
+        // 현재 시간을 ISO 형식으로 생성
+        const currentDate = new Date().toISOString();
 
         const template = `---
   title: ${title}
   tags: []
+  lastUpdated: ${currentDate}
 ---
   
   ${bodyContent || "> 설명을 여기에 작성하세요."}

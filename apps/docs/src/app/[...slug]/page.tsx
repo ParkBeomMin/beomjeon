@@ -36,8 +36,18 @@ export default async function DocPage({ params }: any) {
         const prevDoc = currentIndex > 0 ? allDocs[currentIndex - 1] : null;
         const nextDoc = currentIndex < allDocs.length - 1 ? allDocs[currentIndex + 1] : null;
         
+        // 작성 날짜 포맷팅
         const formattedDate = doc.meta.date 
             ? new Date(doc.meta.date).toLocaleDateString('ko-KR', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })
+            : null;
+            
+        // 최종 업데이트 날짜 포맷팅
+        const formattedLastUpdated = doc.meta.lastUpdated
+            ? new Date(doc.meta.lastUpdated).toLocaleDateString('ko-KR', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric'
@@ -67,6 +77,13 @@ export default async function DocPage({ params }: any) {
                                     <div className="flex items-center">
                                         <span className="mr-1">📅</span>
                                         <time>{formattedDate}</time>
+                                    </div>
+                                )}
+                                
+                                {formattedLastUpdated && (
+                                    <div className="flex items-center">
+                                        <span className="mr-1">🔄</span>
+                                        <time title="최종 업데이트">업데이트: {formattedLastUpdated}</time>
                                     </div>
                                 )}
                                 
