@@ -1,11 +1,8 @@
 import Link from "next/link";
 import { getDocsByTag } from "@/lib/markdown";
 
-type Params = {
-    tag: string;
-};
-
-export default function TagPage({ params }: { params: Params }) {
+// Next.js App Router의 페이지 컴포넌트
+export default function TagPage({ params }: any) {
     const docs = getDocsByTag(params.tag);
 
     return (
