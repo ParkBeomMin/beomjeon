@@ -84,7 +84,15 @@ export function getAllDocsDetailed(): {
     tags: string[];
     content: string;
 }[] {
-    const walk = (dir: string, prefix = ""): any[] => {
+    // DocDetailed 타입 정의
+    type DocDetailed = {
+        slug: string;
+        title: string;
+        tags: string[];
+        content: string;
+    };
+    
+    const walk = (dir: string, prefix = ""): DocDetailed[] => {
         // 디렉토리가 존재하는지 확인
         if (!fs.existsSync(dir)) {
             return [];

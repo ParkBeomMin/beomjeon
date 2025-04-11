@@ -17,7 +17,7 @@ export default async function DocPage({ params }: { params: Params }) {
                 <div dangerouslySetInnerHTML={{ __html: doc.content }} />
             </div>
         );
-    } catch (err) {
+    } catch {
         notFound();
     }
 }

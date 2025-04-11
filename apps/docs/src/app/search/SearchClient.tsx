@@ -4,7 +4,15 @@ import { useState, useMemo } from "react";
 import Fuse from "fuse.js";
 import Link from "next/link";
 
-export default function SearchClient({ docs }: { docs: any[] }) {
+// 문서 타입 정의
+interface DocType {
+    slug: string;
+    title: string;
+    tags: string[];
+    content: string;
+}
+
+export default function SearchClient({ docs }: { docs: DocType[] }) {
     const [query, setQuery] = useState("");
 
     const fuse = useMemo(

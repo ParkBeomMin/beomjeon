@@ -4,7 +4,15 @@ import { useState } from "react";
 import Link from "next/link";
 import CreateDocModal from "./components/CreateDocModal";
 
-export default function ClientHome({ initialDocs }: { initialDocs: any[] }) {
+// 문서 타입 정의
+interface DocType {
+    slug: string;
+    title: string;
+    tags?: string[];
+    content?: string;
+}
+
+export default function ClientHome({ initialDocs }: { initialDocs: DocType[] }) {
     const [docs, setDocs] = useState(initialDocs);
     const [open, setOpen] = useState(false);
     const [searchQuery, setSearchQuery] = useState("");
