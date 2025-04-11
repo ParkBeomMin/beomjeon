@@ -2,12 +2,8 @@ import { getDocBySlug } from "@/lib/markdown";
 import { notFound } from "next/navigation";
 import CopyableCode from "@@/components/CopyableCode";
 
-// Next.js 14 App Router에 맞게 간단하게 타입 정의
-export default async function DocPage({
-  params,
-}: {
-  params: { slug: string[] };
-}) {
+// JSX.Element 타입으로 명시적 타입 선언을 하지 않습니다
+export default async function DocPage({ params }: any) {
     const slugPath = params.slug.join("/");
     try {
         const doc = await getDocBySlug(slugPath);
