@@ -8,10 +8,9 @@
   "scripts": {
     "build": "tsup",
     "test": "vitest",
-    "publish": "npm publish --access public",
-    "version:patch": "npm version patch && git add package.json && git commit -m \"🔖 bump: patch release\"",
-    "version:minor": "npm version minor && git add package.json && git commit -m \"🔖 bump: minor release\"",
-    "version:major": "npm version major && git add package.json && git commit -m \"🔖 bump: major release\"",
+    "version:patch": "pnpm version patch && git add package.json && git commit -m \"🔖 bump: patch release\"",
+    "version:minor": "pnpm version minor && git add package.json && git commit -m \"🔖 bump: minor release\"",
+    "version:major": "pnpm version major && git add package.json && git commit -m \"🔖 bump: major release\"",
     "release": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "devDependencies": {
