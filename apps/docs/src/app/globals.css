@@ -2,31 +2,151 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* 토스 슬래시 스타일 컬러 변수 */
+  --primary: #3182f6;
+  --primary-light: #4593fc;
+  --primary-dark: #2272eb;
+  --border: #e5e8eb;
+  --focus-ring: rgba(67, 138, 255, 0.5);
+  --focus-ring-width: 3px;
+  
+  /* 코드 하이라이트 컬러 */
+  --code-bg: #f3f4f6;
+  --code-fg: #1f2937;
+  --code-block-bg: #f8fafc;
+  --code-border: #e5e7eb;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-code-bg: var(--code-bg);
+  --color-code-fg: var(--code-fg);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --primary: #4593fc;
+    --primary-light: #579fff;
+    --primary-dark: #3182f6;
+    --border: #2c353d;
+    --focus-ring: rgba(67, 138, 255, 0.5);
+    
+    /* 다크 모드 코드 하이라이트 */
+    --code-bg: #1e293b;
+    --code-fg: #e2e8f0;
+    --code-block-bg: #0f172a;
+    --code-border: #334155;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  /* 버튼 스타일 */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-lg font-medium transition-colors;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-blue-500;
+  }
+  
+  .btn-primary {
+    @apply bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600;
+  }
+  
+  .btn-secondary {
+    @apply bg-slate-100 text-slate-800 hover:bg-slate-200 dark:bg-slate-700 dark:text-slate-100 dark:hover:bg-slate-600;
+  }
+  
+  /* 카드 스타일 */
+  .card {
+    @apply bg-white dark:bg-slate-800 rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700;
+    @apply transition-all duration-200 hover:shadow-xl;
+  }
+  
+  /* 헤더 텍스트 스타일 */
+  .heading-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600;
+  }
+  
+  /* 프로즈(마크다운) 스타일링 */
+  .prose {
+    @apply text-slate-700 dark:text-slate-300;
+  }
+  
+  .prose h1 {
+    @apply text-3xl font-bold text-slate-900 dark:text-white mt-8 mb-4;
+  }
+  
+  .prose h2 {
+    @apply text-2xl font-bold text-slate-800 dark:text-slate-100 mt-8 mb-4;
+  }
+  
+  .prose h3 {
+    @apply text-xl font-semibold text-slate-800 dark:text-slate-100 mt-6 mb-3;
+  }
+  
+  .prose p {
+    @apply my-4 leading-relaxed;
+  }
+  
+  .prose ul {
+    @apply list-disc pl-6 my-4;
+  }
+  
+  .prose ol {
+    @apply list-decimal pl-6 my-4;
+  }
+  
+  .prose li {
+    @apply my-1;
+  }
+  
+  .prose a {
+    @apply text-blue-600 dark:text-blue-400 hover:underline;
+  }
+  
+  .prose strong {
+    @apply font-bold text-slate-900 dark:text-white;
+  }
+  
+  .prose em {
+    @apply italic;
+  }
+  
+  .prose blockquote {
+    @apply pl-4 border-l-4 border-slate-300 dark:border-slate-700 text-slate-600 dark:text-slate-400 my-4 italic;
+  }
+  
+  /* 코드 블록 스타일 */
+  .prose pre {
+    @apply bg-slate-100 dark:bg-slate-800 p-4 rounded-xl overflow-auto my-4 border border-slate-200 dark:border-slate-700;
+  }
+  
+  .prose code {
+    @apply bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-sm font-mono text-slate-800 dark:text-slate-200;
+  }
+  
+  .prose pre code {
+    @apply bg-transparent p-0 text-slate-800 dark:text-slate-200;
+  }
+}
 
 /* 마크다운 테이블 스타일 */
 .prose table {
@@ -36,18 +156,20 @@ body {
   border-collapse: collapse;
   overflow-x: auto;
   display: block;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 .prose table th {
   background-color: #f3f4f6;
   font-weight: 600;
   text-align: left;
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
   border: 1px solid #e5e7eb;
 }
 
 .prose table td {
-  padding: 0.75rem;
+  padding: 0.75rem 1rem;
   border: 1px solid #e5e7eb;
   vertical-align: top;
 }
@@ -60,11 +182,59 @@ body {
   background-color: #f3f4f6;
 }
 
+@media (prefers-color-scheme: dark) {
+  .prose table th {
+    background-color: #1e293b;
+    border-color: #334155;
+  }
+  
+  .prose table td {
+    border-color: #334155;
+  }
+  
+  .prose table tr:nth-child(even) {
+    background-color: #1e293b;
+  }
+  
+  .prose table tr:hover {
+    background-color: #334155;
+  }
+}
+
 /* 모바일에서 테이블 스크롤 가능하게 */
 @media (max-width: 640px) {
   .prose table {
     display: block;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* 스크롤바 스타일링 */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-thumb {
+    background: #4b5563;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6b7280;
   }
 }

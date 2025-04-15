@@ -1,7 +1,0 @@
----
-  title: ddd
-  tags: []
----
-  
-  ddd
-  

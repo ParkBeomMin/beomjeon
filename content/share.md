@@ -80,7 +80,7 @@ window.open(messengerUrl, "_blank");
 
 ## 카카오 스토리 공유하기
 
-[지원종료|https://devtalk.kakao.com/t/url/132327]
+[지원종료](https://devtalk.kakao.com/t/url/132327)
 
 ## 네이버 블로그 공유하기
 

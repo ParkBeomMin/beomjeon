@@ -2,30 +2,15 @@ import { getDocBySlug, getAllDocs } from "@/lib/markdown";
 import { notFound } from "next/navigation";
 import CopyableCode from "@@/components/CopyableCode";
 import Link from "next/link";
-import type { Metadata } from "next";
 
-// 동적 메타데이터 생성
-export async function generateMetadata({ params }: any): Promise<Metadata> {
-    const slugPath = params.slug.join("/");
-    
-    try {
-        const doc = await getDocBySlug(slugPath);
-        return {
-            title: `${doc.meta.title || slugPath} | 범전 문서`,
-            description: doc.meta.description || `${doc.meta.title || slugPath}에 대한 기술 문서`,
-            keywords: doc.meta.tags || [],
-        };
-    } catch {
-        return {
-            title: "문서를 찾을 수 없음 | 범전 문서",
-            description: "요청하신 문서를 찾을 수 없습니다.",
-        };
-    }
-}
+// 외부에서 메타데이터와 뷰포트 설정 가져오기
+export { generateMetadata, generateViewport } from "./generateMetadata";
 
 // Next.js App Router의 페이지 컴포넌트
 export default async function DocPage({ params }: any) {
-    const slugPath = params.slug.join("/");
+    // Promise로 변환하여 await 사용
+    const slug = await Promise.resolve(params.slug);
+    const slugPath = slug.join("/");
     
     try {
         const doc = await getDocBySlug(slugPath);
@@ -65,52 +50,54 @@ export default async function DocPage({ params }: any) {
                     <span className="text-gray-900">{doc.meta.title}</span>
                 </div>
                 
-                <div className="flex flex-col md:flex-row gap-8">
-                    {/* 메인 콘텐츠 */}
-                    <article className="flex-1">
-                        <header className="mb-8 pb-4 border-b border-gray-200">
-                            <h1 className="text-3xl font-bold mb-4">{doc.meta.title}</h1>
-                            
-                            {/* 메타데이터 */}
-                            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
-                                {formattedDate && (
-                                    <div className="flex items-center">
-                                        <span className="mr-1">📅</span>
-                                        <time>{formattedDate}</time>
-                                    </div>
-                                )}
-                                
-                                {formattedLastUpdated && (
-                                    <div className="flex items-center">
-                                        <span className="mr-1">🔄</span>
-                                        <time title="최종 업데이트">업데이트: {formattedLastUpdated}</time>
-                                    </div>
-                                )}
-                                
-                                {doc.meta.tags && doc.meta.tags.length > 0 && (
-                                    <div className="flex flex-wrap items-center gap-1">
-                                        <span className="mr-1">🏷️</span>
-                                        {doc.meta.tags.map((tag: string) => (
-                                            <Link 
-                                                key={tag} 
-                                                href={`/tags/${tag}`}
-                                                className="px-2 py-1 bg-gray-100 text-xs rounded-full hover:bg-gray-200"
-                                            >
-                                                #{tag}
-                                            </Link>
-                                        ))}
-                                    </div>
-                                )}
-                            </div>
-                        </header>
+                {/* flex-col md:flex-row 레이아웃 제거하고 아티클만 표시 */}
+                <article className="w-full">
+                    <header className="mb-8 pb-4 border-b border-gray-200">
+                        <h1 className="text-3xl font-bold mb-4">{doc.meta.title}</h1>
                         
-                        {/* 본문 콘텐츠 */}
-                        <div className="prose prose-blue max-w-none">
-                            <CopyableCode /> {/* ✅ 코드 복사 기능 삽입 */}
-                            <div dangerouslySetInnerHTML={{ __html: doc.content }} />
+                        {/* 메타데이터 */}
+                        <div className="flex flex-wrap items-center gap-4 text-sm text-gray-500">
+                            {formattedDate && (
+                                <div className="flex items-center">
+                                    <span className="mr-1">📅</span>
+                                    <time>{formattedDate}</time>
+                                </div>
+                            )}
+                            
+                            {formattedLastUpdated && (
+                                <div className="flex items-center">
+                                    <span className="mr-1">🔄</span>
+                                    <time title="최종 업데이트">업데이트: {formattedLastUpdated}</time>
+                                </div>
+                            )}
+                            
+                            {doc.meta.tags && doc.meta.tags.length > 0 && (
+                                <div className="flex flex-wrap items-center gap-1">
+                                    <span className="mr-1">🏷️</span>
+                                    {doc.meta.tags.map((tag: string) => (
+                                        <Link 
+                                            key={tag} 
+                                            href={`/tags/${tag}`}
+                                            className="px-2 py-1 bg-gray-100 text-xs rounded-full hover:bg-gray-200"
+                                        >
+                                            #{tag}
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
                         </div>
-                    </article>
-                </div>
+                    </header>
+                    
+                    {/* 본문 콘텐츠 */}
+                    <div className="prose prose-blue max-w-none">
+                        <CopyableCode /> {/* ✅ 코드 복사 기능 삽입 */}
+                        <div 
+                            dangerouslySetInnerHTML={{ __html: doc.content }} 
+                            className="w-full"
+                            style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}
+                        />
+                    </div>
+                </article>
                 
                 {/* 이전/다음 문서 네비게이션 */}
                 <div className="mt-12 pt-8 border-t border-gray-200 grid grid-cols-2 gap-4">

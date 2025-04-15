@@ -4,6 +4,7 @@ import { useEffect } from "react";
 
 export default function CopyableCode() {
     useEffect(() => {
+        setTimeout(() => {
         const blocks = document.querySelectorAll("pre");
 
         blocks.forEach((block) => {
@@ -31,6 +32,7 @@ export default function CopyableCode() {
             block.classList.add("relative", "rounded");
             block.appendChild(button);
         });
+        }, 1000);
     }, []);
 
     return null; // 아무것도 렌더링하지 않음
