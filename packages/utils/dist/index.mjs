@@ -8,6 +8,16 @@ function isEmpty(value) {
     return Object.keys(value).length === 0;
   return false;
 }
+
+// src/isCellularConnection.ts
+function isCellularConnection() {
+  try {
+    return navigator && "connection" in navigator && navigator.connection && navigator.connection.type === "cellular";
+  } catch (e) {
+    return false;
+  }
+}
 export {
+  isCellularConnection,
   isEmpty
 };

@@ -11,9 +11,9 @@
         "beomjeon": "node ./cli/index.js",
         "test:utils": "pnpm --filter @beomjeon/utils test",
         "build:utils": "pnpm --filter @beomjeon/utils build",
-        "publish:utils:patch": "pnpm --filter @beomjeon/utils run version:patch && pnpm --filter @beomjeon/utils run release",
-        "publish:utils:minor": "pnpm --filter @beomjeon/utils run version:minor && pnpm --filter @beomjeon/utils run release",
-        "publish:utils:major": "pnpm --filter @beomjeon/utils run version:major && pnpm --filter @beomjeon/utils run release"
+        "publish:utils:patch": "node ./cli/deploy.js patch",
+        "publish:utils:minor": "node ./cli/deploy.js minor",
+        "publish:utils:major": "node ./cli/deploy.js major"
   
     },
     "workspaces": [

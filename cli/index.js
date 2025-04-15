@@ -24,6 +24,7 @@ const title = segments[segments.length - 1];
 const template = `---
 title: ${title}
 tags: []
+lastUpdated: ${new Date().toISOString()}
 ---
 
 > 설명을 여기에 작성하세요.

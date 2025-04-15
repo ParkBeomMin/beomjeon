@@ -19,6 +19,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
+  isCellularConnection: () => isCellularConnection,
   isEmpty: () => isEmpty
 });
 module.exports = __toCommonJS(src_exports);
@@ -33,7 +34,17 @@ function isEmpty(value) {
     return Object.keys(value).length === 0;
   return false;
 }
+
+// src/isCellularConnection.ts
+function isCellularConnection() {
+  try {
+    return navigator && "connection" in navigator && navigator.connection && navigator.connection.type === "cellular";
+  } catch (e) {
+    return false;
+  }
+}
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  isCellularConnection,
   isEmpty
 });
