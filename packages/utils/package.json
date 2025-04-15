@@ -1,0 +1,31 @@
+{
+  "name": "@beomjeon/utils",
+  "version": "1.0.3",
+  "description": "A collection of lightweight utility functions for modern web development.",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest",
+    "publish": "npm publish --access public",
+    "version:patch": "npm version patch && git add package.json && git commit -m \"🔖 bump: patch release\"",
+    "version:minor": "npm version minor && git add package.json && git commit -m \"🔖 bump: minor release\"",
+    "version:major": "npm version major && git add package.json && git commit -m \"🔖 bump: major release\"",
+    "release": "pnpm build && pnpm publish --access public"
+  },
+  "devDependencies": {
+    "tsup": "^7.2.0",
+    "typescript": "^5.3.3",
+    "vitest": "^1.2.0"
+  },
+  "keywords": [
+    "utils",
+    "utility",
+    "typescript",
+    "helpers"
+  ],
+  "author": "ParkBeomMin <club20608@gmail.com>",
+  "license": "ISC",
+  "packageManager": "pnpm@10.8.0"
+}
