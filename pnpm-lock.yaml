@@ -91,6 +91,18 @@ importers:
         specifier: ^5
         version: 5.8.3
 
+  packages/utils:
+    devDependencies:
+      tsup:
+        specifier: ^7.2.0
+        version: 7.3.0(postcss@8.5.3)(typescript@5.8.3)
+      typescript:
+        specifier: ^5.3.3
+        version: 5.8.3
+      vitest:
+        specifier: ^1.2.0
+        version: 1.6.1(@types/node@20.17.30)(lightningcss@1.29.2)
+
 packages:
 
   '@alloc/quick-lru@5.2.0':

@@ -4,14 +4,20 @@
     "version": "1.0.0",
     "type": "module",
     "scripts": {
-      "dev": "pnpm --filter docs dev",
-      "build": "pnpm --filter docs build",
-      "lint": "pnpm --filter docs lint",
-      "test": "pnpm --filter ./packages/* test",
-      "beomjeon": "node ./cli/index.js"
+        "dev": "pnpm --filter docs dev",
+        "build": "pnpm --filter docs build",
+        "lint": "pnpm --filter docs lint",
+        "test": "pnpm --filter ./packages/* test",
+        "beomjeon": "node ./cli/index.js",
+        "test:utils": "pnpm --filter @beomjeon/utils test",
+        "build:utils": "pnpm --filter @beomjeon/utils build",
+        "publish:utils:patch": "pnpm --filter @beomjeon/utils run version:patch && pnpm --filter @beomjeon/utils run release",
+        "publish:utils:minor": "pnpm --filter @beomjeon/utils run version:minor && pnpm --filter @beomjeon/utils run release",
+        "publish:utils:major": "pnpm --filter @beomjeon/utils run version:major && pnpm --filter @beomjeon/utils run release"
+  
     },
     "workspaces": [
-      "apps/*",
+        "apps/*",
       "packages/*",
       "cli"
     ],
