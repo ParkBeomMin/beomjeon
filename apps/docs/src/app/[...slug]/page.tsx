@@ -2,6 +2,7 @@ import { getDocBySlug, getAllDocs } from "@/lib/markdown";
 import { notFound } from "next/navigation";
 import CopyableCode from "@@/components/CopyableCode";
 import Link from "next/link";
+import InteractiveContent from '@/components/InteractiveContent';
 
 // 외부에서 메타데이터와 뷰포트 설정 가져오기
 export { generateMetadata, generateViewport } from "./generateMetadata";
@@ -90,12 +91,8 @@ export default async function DocPage({ params }: any) {
                     
                     {/* 본문 콘텐츠 */}
                     <div className="prose prose-blue max-w-none">
-                        <CopyableCode /> {/* ✅ 코드 복사 기능 삽입 */}
-                        <div 
-                            dangerouslySetInnerHTML={{ __html: doc.content }} 
-                            className="w-full"
-                            style={{ wordWrap: 'break-word', overflowWrap: 'break-word' }}
-                        />
+                        <CopyableCode />
+                        <InteractiveContent content={doc.content} />
                     </div>
                 </article>
                 

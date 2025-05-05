@@ -3,6 +3,8 @@
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import CopyableCode from "./CopyableCode";
+import InteractiveContent from "@/components/InteractiveContent";
+
 type DocType = {
   meta: {
     title: string;
@@ -150,7 +152,8 @@ export default function ClientDocumentDetail({ slug }: { slug: string }) {
       
       {/* 본문 콘텐츠 */}
       <div className="prose prose-blue max-w-none">
-        <div dangerouslySetInnerHTML={{ __html: document.content }} />
+        <InteractiveContent content={document.content} />
+        {/* <div dangerouslySetInnerHTML={{ __html: document.content }} /> */}
       </div>  
         <CopyableCode /> {/* ✅ 코드 복사 기능 삽입 */}
           

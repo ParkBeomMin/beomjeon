@@ -6,6 +6,7 @@ import remarkRehype from "remark-rehype";
 import rehypeStringify from "rehype-stringify";
 import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from 'rehype-raw';
 import "highlight.js/styles/github.css";
 
 // 경로를 상위의 상위 디렉토리의 content로 수정
@@ -17,10 +18,9 @@ if (!fs.existsSync(contentDir)) {
 }
 
 export async function getDocBySlug(slug: string) {
-    // URL 인코딩된 슬러그를 디코딩하여 처리
     const decodedSlug = decodeURIComponent(slug);
     const fullPath = path.join(contentDir, `${decodedSlug}.md`);
-    // 파일이 존재하는지 확인
+    
     if (!fs.existsSync(fullPath)) {
         return {
             meta: {},
@@ -33,7 +33,8 @@ export async function getDocBySlug(slug: string) {
 
     const processedContent = await remark()
         .use(remarkGfm)
-        .use(remarkRehype)
+        .use(remarkRehype, { allowDangerousHtml: true })
+        .use(rehypeRaw)
         .use(rehypeHighlight)
         .use(rehypeStringify)
         .process(content);
