@@ -1,6 +1,6 @@
 {
   "name": "@beomjeon/ui-web",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "범전 Web Components",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -17,7 +17,8 @@
   "scripts": {
     "dev": "tsup --watch",
     "build": "tsup",
-    "test": "vitest"
+    "test": "vitest",
+    "release": "pnpm build && pnpm publish --access public --no-git-checks"
   },
   "keywords": [
     "web-component",
