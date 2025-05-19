@@ -1,11 +1,13 @@
 {
   "name": "@beomjeon/ui-web",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "범전 Web Components",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.js",
@@ -17,7 +19,13 @@
     "build": "tsup",
     "test": "vitest"
   },
-  "keywords": ["web-component", "custom-element", "share", "social", "beomjeon"],
+  "keywords": [
+    "web-component",
+    "custom-element",
+    "share",
+    "social",
+    "beomjeon"
+  ],
   "author": "박범민",
   "license": "MIT",
   "publishConfig": {
