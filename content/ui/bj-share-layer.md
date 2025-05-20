@@ -1,3 +1,8 @@
+---
+title: BJ Share Layer
+tags: [ui]
+---
+
 # BJ Share Layer
 
 공유 기능을 제공하는 웹 컴포넌트입니다.
@@ -27,33 +32,9 @@
 
 ## 예제
 
-<div class="example">
-  <script type="module" src="https://cdn.jsdelivr.net/npm/@beomjeon/ui-web"></script>
-  <script>
-    const openBjShareLayer = () => {
-        document.querySelector('bj-share-layer')?.open();
-    }
-    console.log(123123)
-  </script>
-
-<button style="border: solid 1px grey; border-radius: 8px; cursor: pointer" onclick="console.log(document.querySelector('bj-share-layer'));document.querySelector('bj-share-layer')?.open();console.log(111)">
-    open bj-share-layer🪄
-</button>
-
-<bj-share-layer
-    platforms="facebook,kakao"
-    url="https://beomjeon.dev"
-    kakao-key="YOUR_KEY"
-    position="bottomsheet"
-  />
-
-</div>
-
-<style>
-.example {
-  margin: 2rem 0;
-  padding: 1rem;
-  border: 1px solid #eee;
-  border-radius: 8px;
-}
-</style>
+<p class="codepen" data-height="300" data-default-tab="html,result" data-slug-hash="xbbNaaN" data-pen-title="Untitled" data-user="ParkBeomMin" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
+  <span>See the Pen <a href="https://codepen.io/ParkBeomMin/pen/xbbNaaN">
+  Untitled</a> by Beom Min Park (<a href="https://codepen.io/ParkBeomMin">@ParkBeomMin</a>)
+  on <a href="https://codepen.io">CodePen</a>.</span>
+</p>
+<script async src="https://public.codepenassets.com/embed/index.js"></script>

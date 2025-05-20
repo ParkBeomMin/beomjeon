@@ -19,6 +19,7 @@ var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: tru
 // src/index.ts
 var src_exports = {};
 __export(src_exports, {
+  adjustBottomFixed: () => adjustBottomFixed,
   isCellularConnection: () => isCellularConnection,
   isEmpty: () => isEmpty
 });
@@ -43,8 +44,47 @@ function isCellularConnection() {
     return false;
   }
 }
+
+// src/adjustBottomFixed.ts
+function adjustBottomFixed(selector) {
+  const el = document.querySelector(selector);
+  if (!el)
+    return;
+  let initialHeight = window.innerHeight;
+  const originalStyle = {
+    position: el.style.position || "",
+    bottom: el.style.bottom || ""
+  };
+  function updatePosition() {
+    if (!el)
+      return;
+    const currentHeight = window.innerHeight;
+    const keyboardHeight = initialHeight - currentHeight;
+    if (keyboardHeight > 150) {
+      el.style.position = "absolute";
+      el.style.bottom = `${keyboardHeight}px`;
+    } else {
+      el.style.position = originalStyle.position;
+      el.style.bottom = originalStyle.bottom;
+    }
+  }
+  if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", updatePosition);
+  } else {
+    window.addEventListener("resize", updatePosition);
+  }
+  window.addEventListener("focusin", updatePosition);
+  window.addEventListener("focusout", () => {
+    el.style.position = originalStyle.position;
+    el.style.bottom = originalStyle.bottom;
+  });
+  window.addEventListener("load", () => {
+    initialHeight = window.innerHeight;
+  });
+}
 // Annotate the CommonJS export names for ESM import in node:
 0 && (module.exports = {
+  adjustBottomFixed,
   isCellularConnection,
   isEmpty
 });

@@ -9,8 +9,13 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// 명령줄 인수 처리
+const args = process.argv.slice(2);
+const versionType = args[0] || 'patch';
+const packageName = args[1] || 'utils';
+
 // 유틸리티 패키지 경로
-const UTILS_PATH = path.resolve(__dirname, '../packages/utils');
+const UTILS_PATH = path.resolve(__dirname, `../packages/${packageName}`);
 
 /**
  * 명령어 실행 함수
@@ -73,9 +78,6 @@ const deployPackage = (versionType = 'patch') => {
   }
 };
 
-// 명령줄 인수 처리
-const args = process.argv.slice(2);
-const versionType = args[0] || 'patch';
 
 // 유효한 버전 타입 확인
 const validVersionTypes = ['patch', 'minor', 'major'];

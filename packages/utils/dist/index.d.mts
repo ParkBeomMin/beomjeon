@@ -2,4 +2,6 @@ declare function isEmpty(value: unknown): boolean;
 
 declare function isCellularConnection(): boolean;
 
-export { isCellularConnection, isEmpty };
+declare function adjustBottomFixed(selector: string): void;
+
+export { adjustBottomFixed, isCellularConnection, isEmpty };

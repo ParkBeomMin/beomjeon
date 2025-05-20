@@ -13,7 +13,10 @@
         "build:utils": "pnpm --filter @beomjeon/utils build",
         "publish:utils:patch": "node ./cli/deploy.js patch",
         "publish:utils:minor": "node ./cli/deploy.js minor",
-        "publish:utils:major": "node ./cli/deploy.js major"
+        "publish:utils:major": "node ./cli/deploy.js major",
+        "publish:ui:patch": "node ./cli/deploy.js patch ui/web",
+        "publish:ui:minor": "node ./cli/deploy.js minor ui/web",
+        "publish:ui:major": "node ./cli/deploy.js major ui/web"
   
     },
     "workspaces": [
