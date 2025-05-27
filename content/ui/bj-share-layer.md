@@ -32,9 +32,8 @@ tags: [ui]
 
 ## 예제
 
-<p class="codepen" data-height="300" data-default-tab="html,result" data-slug-hash="xbbNaaN" data-pen-title="Untitled" data-user="ParkBeomMin" style="height: 300px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;">
-  <span>See the Pen <a href="https://codepen.io/ParkBeomMin/pen/xbbNaaN">
+<iframe height="300" style="width: 100%;" scrolling="no" title="Untitled" src="https://codepen.io/ParkBeomMin/embed/xbbNaaN?default-tab=html%2Cresult" frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+  See the Pen <a href="https://codepen.io/ParkBeomMin/pen/xbbNaaN">
   Untitled</a> by Beom Min Park (<a href="https://codepen.io/ParkBeomMin">@ParkBeomMin</a>)
-  on <a href="https://codepen.io">CodePen</a>.</span>
-</p>
-<script async src="https://public.codepenassets.com/embed/index.js"></script>
+  on <a href="https://codepen.io">CodePen</a>.
+</iframe>
