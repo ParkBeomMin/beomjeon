@@ -26,9 +26,11 @@ export function onClickOutside(
     };
   
     document.addEventListener('touchstart', handler);
+    document.addEventListener('click', handler);
   
     const cleanup = () => {
       document.removeEventListener('touchstart', handler);
+      document.removeEventListener('click', handler);
     };
 
     // popstate 이벤트로 URL 변경 감지

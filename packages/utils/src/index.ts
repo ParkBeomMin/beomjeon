@@ -1,3 +1,11 @@
-export * from "./isEmpty";
-export * from "./isCellularConnection";
-export * from "./adjustBottomFixed";
+import { isEmpty } from "./isEmpty";
+import { isCellularConnection } from "./isCellularConnection";
+import { adjustBottomFixed } from "./adjustBottomFixed";
+import { onClickOutside } from "./onClickOutside";
+
+export {
+  isEmpty,
+  isCellularConnection,
+  adjustBottomFixed,
+  onClickOutside
+};
